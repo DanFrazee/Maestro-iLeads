@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
-#import "ViewController.h"
+#import "MainViewController.h"
 
 @implementation AppDelegate
 
@@ -16,8 +15,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    MainViewController *mainViewController = [[MainViewController alloc]init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    [self.window setRootViewController:navigationController];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
