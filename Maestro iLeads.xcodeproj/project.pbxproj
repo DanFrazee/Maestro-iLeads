@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C6E2895816027DF900D8D6F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895716027DF900D8D6F2 /* UIKit.framework */; };
+		C6E2895A16027DF900D8D6F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895916027DF900D8D6F2 /* Foundation.framework */; };
+		C6E2895C16027DF900D8D6F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895B16027DF900D8D6F2 /* CoreGraphics.framework */; };
+		C6E2896216027DF900D8D6F2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6E2896016027DF900D8D6F2 /* InfoPlist.strings */; };
+		C6E2896416027DF900D8D6F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E2896316027DF900D8D6F2 /* main.m */; };
+		C6E2896816027DF900D8D6F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E2896716027DF900D8D6F2 /* AppDelegate.m */; };
+		C6E2896B16027DF900D8D6F2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E2896A16027DF900D8D6F2 /* ViewController.m */; };
+		C6E2896E16027DF900D8D6F2 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E2896C16027DF900D8D6F2 /* ViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C6E2895316027DF900D8D6F2 /* Maestro iLeads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maestro iLeads.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6E2895716027DF900D8D6F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C6E2895916027DF900D8D6F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C6E2895B16027DF900D8D6F2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C6E2895F16027DF900D8D6F2 /* Maestro iLeads-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Maestro iLeads-Info.plist"; sourceTree = "<group>"; };
+		C6E2896116027DF900D8D6F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C6E2896316027DF900D8D6F2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C6E2896516027DF900D8D6F2 /* Maestro iLeads-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Maestro iLeads-Prefix.pch"; sourceTree = "<group>"; };
+		C6E2896616027DF900D8D6F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C6E2896716027DF900D8D6F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C6E2896916027DF900D8D6F2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C6E2896A16027DF900D8D6F2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C6E2896D16027DF900D8D6F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C6E2895016027DF900D8D6F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6E2895816027DF900D8D6F2 /* UIKit.framework in Frameworks */,
+				C6E2895A16027DF900D8D6F2 /* Foundation.framework in Frameworks */,
+				C6E2895C16027DF900D8D6F2 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C6E2894816027DF900D8D6F2 = {
+			isa = PBXGroup;
+			children = (
+				C6E2895D16027DF900D8D6F2 /* Maestro iLeads */,
+				C6E2895616027DF900D8D6F2 /* Frameworks */,
+				C6E2895416027DF900D8D6F2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C6E2895416027DF900D8D6F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C6E2895316027DF900D8D6F2 /* Maestro iLeads.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6E2895616027DF900D8D6F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C6E2895716027DF900D8D6F2 /* UIKit.framework */,
+				C6E2895916027DF900D8D6F2 /* Foundation.framework */,
+				C6E2895B16027DF900D8D6F2 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6E2895D16027DF900D8D6F2 /* Maestro iLeads */ = {
+			isa = PBXGroup;
+			children = (
+				C6E2896616027DF900D8D6F2 /* AppDelegate.h */,
+				C6E2896716027DF900D8D6F2 /* AppDelegate.m */,
+				C6E2896916027DF900D8D6F2 /* ViewController.h */,
+				C6E2896A16027DF900D8D6F2 /* ViewController.m */,
+				C6E2896C16027DF900D8D6F2 /* ViewController.xib */,
+				C6E2895E16027DF900D8D6F2 /* Supporting Files */,
+			);
+			path = "Maestro iLeads";
+			sourceTree = "<group>";
+		};
+		C6E2895E16027DF900D8D6F2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C6E2895F16027DF900D8D6F2 /* Maestro iLeads-Info.plist */,
+				C6E2896016027DF900D8D6F2 /* InfoPlist.strings */,
+				C6E2896316027DF900D8D6F2 /* main.m */,
+				C6E2896516027DF900D8D6F2 /* Maestro iLeads-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C6E2895216027DF900D8D6F2 /* Maestro iLeads */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6E2897116027DF900D8D6F2 /* Build configuration list for PBXNativeTarget "Maestro iLeads" */;
+			buildPhases = (
+				C6E2894F16027DF900D8D6F2 /* Sources */,
+				C6E2895016027DF900D8D6F2 /* Frameworks */,
+				C6E2895116027DF900D8D6F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Maestro iLeads";
+			productName = "Maestro iLeads";
+			productReference = C6E2895316027DF900D8D6F2 /* Maestro iLeads.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C6E2894A16027DF900D8D6F2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = Maestro;
+			};
+			buildConfigurationList = C6E2894D16027DF900D8D6F2 /* Build configuration list for PBXProject "Maestro iLeads" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C6E2894816027DF900D8D6F2;
+			productRefGroup = C6E2895416027DF900D8D6F2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C6E2895216027DF900D8D6F2 /* Maestro iLeads */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C6E2895116027DF900D8D6F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6E2896216027DF900D8D6F2 /* InfoPlist.strings in Resources */,
+				C6E2896E16027DF900D8D6F2 /* ViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C6E2894F16027DF900D8D6F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6E2896416027DF900D8D6F2 /* main.m in Sources */,
+				C6E2896816027DF900D8D6F2 /* AppDelegate.m in Sources */,
+				C6E2896B16027DF900D8D6F2 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C6E2896016027DF900D8D6F2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6E2896116027DF900D8D6F2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C6E2896C16027DF900D8D6F2 /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6E2896D16027DF900D8D6F2 /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C6E2896F16027DF900D8D6F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C6E2897016027DF900D8D6F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C6E2897216027DF900D8D6F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Maestro iLeads/Maestro iLeads-Prefix.pch";
+				INFOPLIST_FILE = "Maestro iLeads/Maestro iLeads-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C6E2897316027DF900D8D6F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Maestro iLeads/Maestro iLeads-Prefix.pch";
+				INFOPLIST_FILE = "Maestro iLeads/Maestro iLeads-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C6E2894D16027DF900D8D6F2 /* Build configuration list for PBXProject "Maestro iLeads" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6E2896F16027DF900D8D6F2 /* Debug */,
+				C6E2897016027DF900D8D6F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6E2897116027DF900D8D6F2 /* Build configuration list for PBXNativeTarget "Maestro iLeads" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6E2897216027DF900D8D6F2 /* Debug */,
+				C6E2897316027DF900D8D6F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C6E2894A16027DF900D8D6F2 /* Project object */;
+}
