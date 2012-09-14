@@ -18,11 +18,6 @@
 		C6E2897816027E9A00D8D6F2 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E2897716027E9A00D8D6F2 /* MainViewController.m */; };
 		C6E2898016027EAD00D8D6F2 /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E2897B16027EAD00D8D6F2 /* DetailTableViewCell.m */; };
 		C6E2898116027EAD00D8D6F2 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E2897C16027EAD00D8D6F2 /* DetailTableViewCell.xib */; };
-		C6E2898216027EAD00D8D6F2 /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E2897D16027EAD00D8D6F2 /* ImageTableViewCell.xib */; };
-		C6E2898316027EAD00D8D6F2 /* ImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E2897F16027EAD00D8D6F2 /* ImageViewCell.m */; };
-		C6E2898816027EBE00D8D6F2 /* EmailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E2898516027EBE00D8D6F2 /* EmailHeaderView.xib */; };
-		C6E2898916027EBE00D8D6F2 /* ImageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E2898616027EBE00D8D6F2 /* ImageHeaderView.xib */; };
-		C6E2898A16027EBE00D8D6F2 /* PhoneHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E2898716027EBE00D8D6F2 /* PhoneHeaderView.xib */; };
 		C6E2899D16027ECA00D8D6F2 /* maestro-icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E2898D16027ECA00D8D6F2 /* maestro-icon114.png */; };
 		C6E2899E16027ECA00D8D6F2 /* maestro-icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E2898E16027ECA00D8D6F2 /* maestro-icon57.png */; };
 		C6E2899F16027ECA00D8D6F2 /* ContactStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E2899016027ECA00D8D6F2 /* ContactStore.m */; };
@@ -57,12 +52,6 @@
 		C6E2897A16027EAD00D8D6F2 /* DetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
 		C6E2897B16027EAD00D8D6F2 /* DetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewCell.m; sourceTree = "<group>"; };
 		C6E2897C16027EAD00D8D6F2 /* DetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
-		C6E2897D16027EAD00D8D6F2 /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
-		C6E2897E16027EAD00D8D6F2 /* ImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewCell.h; sourceTree = "<group>"; };
-		C6E2897F16027EAD00D8D6F2 /* ImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewCell.m; sourceTree = "<group>"; };
-		C6E2898516027EBE00D8D6F2 /* EmailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailHeaderView.xib; sourceTree = "<group>"; };
-		C6E2898616027EBE00D8D6F2 /* ImageHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageHeaderView.xib; sourceTree = "<group>"; };
-		C6E2898716027EBE00D8D6F2 /* PhoneHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhoneHeaderView.xib; sourceTree = "<group>"; };
 		C6E2898D16027ECA00D8D6F2 /* maestro-icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "maestro-icon114.png"; sourceTree = "<group>"; };
 		C6E2898E16027ECA00D8D6F2 /* maestro-icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "maestro-icon57.png"; sourceTree = "<group>"; };
 		C6E2898F16027ECA00D8D6F2 /* ContactStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactStore.h; path = SupportingFiles/ContactStore.h; sourceTree = "<group>"; };
@@ -162,7 +151,6 @@
 				C6E2899A16027ECA00D8D6F2 /* DetailsViewController.xib */,
 				C6E2899B16027ECA00D8D6F2 /* DocumentHelper.h */,
 				C6E2899C16027ECA00D8D6F2 /* DocumentHelper.m */,
-				C6E2898416027EBE00D8D6F2 /* HeaderViews */,
 				C6E2897916027EAD00D8D6F2 /* CustomTableViewCells */,
 				C6E2895F16027DF900D8D6F2 /* Maestro iLeads-Info.plist */,
 				C6E2896016027DF900D8D6F2 /* InfoPlist.strings */,
@@ -179,21 +167,8 @@
 				C6E2897A16027EAD00D8D6F2 /* DetailTableViewCell.h */,
 				C6E2897B16027EAD00D8D6F2 /* DetailTableViewCell.m */,
 				C6E2897C16027EAD00D8D6F2 /* DetailTableViewCell.xib */,
-				C6E2897D16027EAD00D8D6F2 /* ImageTableViewCell.xib */,
-				C6E2897E16027EAD00D8D6F2 /* ImageViewCell.h */,
-				C6E2897F16027EAD00D8D6F2 /* ImageViewCell.m */,
 			);
 			path = CustomTableViewCells;
-			sourceTree = "<group>";
-		};
-		C6E2898416027EBE00D8D6F2 /* HeaderViews */ = {
-			isa = PBXGroup;
-			children = (
-				C6E2898516027EBE00D8D6F2 /* EmailHeaderView.xib */,
-				C6E2898616027EBE00D8D6F2 /* ImageHeaderView.xib */,
-				C6E2898716027EBE00D8D6F2 /* PhoneHeaderView.xib */,
-			);
-			path = HeaderViews;
 			sourceTree = "<group>";
 		};
 		C6E2898B16027ECA00D8D6F2 /* Assets */ = {
@@ -282,10 +257,6 @@
 				C6E2896216027DF900D8D6F2 /* InfoPlist.strings in Resources */,
 				C6E2896E16027DF900D8D6F2 /* ViewController.xib in Resources */,
 				C6E2898116027EAD00D8D6F2 /* DetailTableViewCell.xib in Resources */,
-				C6E2898216027EAD00D8D6F2 /* ImageTableViewCell.xib in Resources */,
-				C6E2898816027EBE00D8D6F2 /* EmailHeaderView.xib in Resources */,
-				C6E2898916027EBE00D8D6F2 /* ImageHeaderView.xib in Resources */,
-				C6E2898A16027EBE00D8D6F2 /* PhoneHeaderView.xib in Resources */,
 				C6E2899D16027ECA00D8D6F2 /* maestro-icon114.png in Resources */,
 				C6E2899E16027ECA00D8D6F2 /* maestro-icon57.png in Resources */,
 				C6E289A416027ECA00D8D6F2 /* DetailsViewController.xib in Resources */,
@@ -304,7 +275,6 @@
 				C6E2896B16027DF900D8D6F2 /* ViewController.m in Sources */,
 				C6E2897816027E9A00D8D6F2 /* MainViewController.m in Sources */,
 				C6E2898016027EAD00D8D6F2 /* DetailTableViewCell.m in Sources */,
-				C6E2898316027EAD00D8D6F2 /* ImageViewCell.m in Sources */,
 				C6E2899F16027ECA00D8D6F2 /* ContactStore.m in Sources */,
 				C6E289A316027ECA00D8D6F2 /* DetailsViewController.m in Sources */,
 				C6E289A516027ECA00D8D6F2 /* DocumentHelper.m in Sources */,
@@ -427,6 +397,7 @@
 				C6E2897316027DF900D8D6F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

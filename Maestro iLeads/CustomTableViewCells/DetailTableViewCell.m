@@ -25,7 +25,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    [super setSelected:selected animated:animated];
+   // [super setSelected:selected animated:animated];
     //Fade the BG in...
 }
 
@@ -40,20 +40,21 @@
     UILabel *tl = self.titleLable;
     UILabel *ttl;
     CGSize typeSize;
-        
+    int tlWidth = 200;
     int tlXPos = 20;
         
     if (self.phoneNumberObject.type) {
         typeLabel.text = self.phoneNumberObject.type.name;
+        tlWidth = 155;
         typeSize = [typeLabel.text sizeWithFont:typeLabel.font];
         ttl = typeLabel;
-        tlXPos = 20 + typeSize.width + 3;
+        tlXPos = 20 + typeSize.width + 2;
     }
         
     if (editing) {
         [UIView animateWithDuration:.5 animations:^{
             [ttl setFrame:CGRectMake(self.bounds.origin.x + 40, 9, typeSize.width, 21)];
-            [tl setFrame:CGRectMake(tlXPos+20, 9, 280, 21)];
+            [tl setFrame:CGRectMake(tlXPos+20, 9, tlWidth, 21)];
             [tf setFrame:CGRectMake(40, 5, 260, 31)];
         }];
         
@@ -169,7 +170,7 @@
     typeLabel.font = [UIFont boldSystemFontOfSize:17.0];
     CGSize typeSize = [type sizeWithFont:typeLabel.font];
         
-    [self.titleLable setFrame:CGRectMake(self.bounds.origin.x + typeSize.width + 23,
+    [self.titleLable setFrame:CGRectMake(self.bounds.origin.x + typeSize.width + 22,
                                          self.titleLable.frame.origin.y,
                                          self.titleLable.frame.size.width - typeSize.width - 5,
                                          self.titleLable.frame.size.height)];

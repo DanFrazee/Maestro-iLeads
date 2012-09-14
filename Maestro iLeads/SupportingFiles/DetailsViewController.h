@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <QuartzCore/QuartzCore.h>
 #import "PhoneTypes.h"
 
 @class Person;
 
 @interface DetailsViewController : UIViewController<UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate , UIImagePickerControllerDelegate> {
-    __weak IBOutlet UIView*phoneHeaderView;
-    __weak IBOutlet UIView*emailHeaderView;
-    __weak IBOutlet UIView*imageHeaderView;
+    NSMutableArray *tableViewHeaderViews;
     __weak IBOutlet UITableView *detailsTableView;
     
     __weak IBOutlet UILabel *contactName;

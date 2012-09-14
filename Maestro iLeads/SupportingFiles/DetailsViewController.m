@@ -12,7 +12,6 @@
 #import "PhoneTypes.h"
 #import "Person.h"
 #import "DetailTableViewCell.h"
-#import "ImageViewCell.h"
 #import "DocumentHelper.h"
 
 @interface DetailsViewController ()
@@ -119,26 +118,39 @@
 
 -(UIView *)buildHeaderViewForSection:(NSInteger)section
 {
-    if(!phoneHeaderView)
-        [[NSBundle mainBundle] loadNibNamed:@"PhoneHeaderView" owner:self options:nil];
-    if(!emailHeaderView)
-        [[NSBundle mainBundle] loadNibNamed:@"EmailHeaderView" owner:self options:nil];
-    if(!imageHeaderView)
-        [[NSBundle mainBundle] loadNibNamed:@"ImageHeaderView" owner:self options:nil];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 28)];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20, 3, 165, 21)];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
 
-    UIView *headerView;
+    [button setFrame:CGRectMake(285, 0, 29, 29)];
+    button.tag = section+1;
+    [button addTarget:self action:@selector(createNewTableRow:) forControlEvents:UIControlEventTouchUpInside];
+    [labelView setBackgroundColor:[UIColor clearColor]];
+    [labelView setFont:[UIFont boldSystemFontOfSize:17]];
+    
+    [headerView addSubview:button];
+    [headerView addSubview:labelView];
     
     if (section==0) {
-        headerView = phoneHeaderView;
+        labelView.text = @"Phone Numbers";
     } else if(section==1){
-        headerView = emailHeaderView;
+        labelView.text = @"Email Address";
         if (!self.contact.email) {
-            [[emailHeaderView viewWithTag:2] setHidden:NO];
+            [button setHidden:NO];
         } else{
-            [[emailHeaderView viewWithTag:2] setHidden:YES];
+            [button setHidden:YES];
         }
     } else if(section==2){
-        headerView = imageHeaderView;
+        labelView.text = @"Image";
+        [button setHidden:YES];
+    }
+    
+    if (!tableViewHeaderViews) {
+        tableViewHeaderViews = [[NSMutableArray alloc] init];
+    }
+    
+    if (![tableViewHeaderViews containsObject:headerView] ) {
+        [tableViewHeaderViews addObject:headerView];
     }
     
     return headerView;
@@ -286,7 +298,8 @@
     if ([textField.superview isKindOfClass:[DetailTableViewCell class]]) {
         NSString *cellType = [(DetailTableViewCell*)textField.superview cellType];
         if (cellType==@"number") {
-            [(UIButton*)[phoneHeaderView viewWithTag:1] setHidden:NO];
+            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:0] viewWithTag:1];
+            [btn setHidden:NO];
         } else if (cellType==@"email"){
             [detailsTableView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
@@ -318,7 +331,8 @@
         section = 1;
         position = 0;
         contentOffset.y +=42;
-        [[emailHeaderView viewWithTag:2] setHidden:YES];
+        UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
+        [btn setHidden:YES];
     }
     
     [detailsTableView setContentOffset:contentOffset animated:YES];
@@ -446,7 +460,8 @@
             [self removePhoneNumberFromNumberArray:number];
         } else if (indexPath.section==1) {
             self.contact.email = nil;
-            [[emailHeaderView viewWithTag:2] setHidden:NO];
+            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
+            [btn setHidden:YES];
         }
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
