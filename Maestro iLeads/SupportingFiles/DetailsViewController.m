@@ -36,12 +36,15 @@
     
     if (!self.isNewContact) {
         [contactNameField setHidden:YES];
-        contactName.text = [NSString stringWithFormat:@"%@ %@",self.contact.lastName,self.contact.firstName];
-        contactNameField.text = [NSString stringWithFormat:@"%@ %@",self.contact.lastName,self.contact.firstName];
+        contactName.text = [NSString stringWithFormat:@"%@ %@",self.contact.firstName,self.contact.lastName];
+        contactNameField.text = [NSString stringWithFormat:@"%@ %@",self.contact.firstName,self.contact.lastName];
         UIButton *editButton = (UIButton *)[self.view viewWithTag:102];
         [editButton setTitle:@"Edit" forState:UIControlStateNormal];
         [detailsTableView reloadData];
     } else {
+        if (!self.contact.firstName && !self.contact.lastName) {
+            [contactNameField becomeFirstResponder];
+        }
     }
 }
 
@@ -171,6 +174,10 @@
         [textField setHidden:YES];
         [sender setTitle:@"Edit" forState:UIControlStateNormal];
         [textField resignFirstResponder];
+        
+        if (!self.isNewContact && !detailsTableView.isEditing) {
+            [sender setHidden:YES];
+        }
     }else if ([sender.titleLabel.text isEqualToString:@"Edit"]) {
         if(isATableCell){
             info =[self getInfoForTextField:textField];
@@ -270,7 +277,7 @@
     int t = textField.tag;
     UIButton *editButton = (UIButton*)[self.view viewWithTag:t+100];
     [editButton setHidden:NO];
-    
+        
     [NSTimer scheduledTimerWithTimeInterval:.25 target:self selector:@selector(scrollToTextFieldWithTimeDelay:) userInfo:textField repeats:NO];
 }
 
@@ -281,7 +288,7 @@
         if (cellType==@"number") {
             [(UIButton*)[phoneHeaderView viewWithTag:1] setHidden:NO];
         } else if (cellType==@"email"){
-            
+            [detailsTableView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
     }
 }
@@ -459,16 +466,27 @@
     if ([detailsTableView isEditing]) {
         if (isNameCorrect) {
             [[self.view viewWithTag:20] setHidden:YES];
-            [[self.view viewWithTag:120] setHidden:YES];
-            [(UIButton*)[self.view viewWithTag:102] setTitle:@"Edit" forState:UIControlStateNormal];
-        }
+            UIButton *editButton =(UIButton*)[self.view viewWithTag:120];
+            [editButton setTitle:@"Edit" forState:UIControlStateNormal];
+            [editButton setHidden:NO];
+            [UIView animateWithDuration:.5 animations:^{
+                [editButton setAlpha:0.0];
+            } completion:^(BOOL finished){
+                if (finished)
+                    [editButton setHidden:YES];
+            }];
         [detailsTableView setEditing:!isNameCorrect animated:YES];
+        }
     } else {
         [detailsTableView setEditing:YES animated:YES];
-        [[self.view viewWithTag:120] setHidden:NO];
+        UIButton *editButton =(UIButton*)[self.view viewWithTag:120];
+        [editButton setHidden:NO];
+        [editButton setAlpha:0.0];
+        [UIView animateWithDuration:.5 animations:^{ [editButton setAlpha:1.0]; }];
         isNameCorrect = NO;
     }
     [super setEditing:!isNameCorrect animated:animated];
+
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
