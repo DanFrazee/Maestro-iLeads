@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C62C981E1603B59D00A7F629 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = C62C981D1603B59D00A7F629 /* Person.m */; };
 		C6E2895816027DF900D8D6F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895716027DF900D8D6F2 /* UIKit.framework */; };
 		C6E2895A16027DF900D8D6F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895916027DF900D8D6F2 /* Foundation.framework */; };
 		C6E2895C16027DF900D8D6F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895B16027DF900D8D6F2 /* CoreGraphics.framework */; };
@@ -29,11 +30,12 @@
 		C6E289AB16027F6400D8D6F2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E289AA16027F6400D8D6F2 /* CoreData.framework */; };
 		C6E289B11602844B00D8D6F2 /* MaestroiLeads.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = C6E289B01602844B00D8D6F2 /* MaestroiLeads.xcdatamodel */; };
 		C6E289B7160284FF00D8D6F2 /* PhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E289B6160284FF00D8D6F2 /* PhoneNumber.m */; };
-		C6E289BA1602851200D8D6F2 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E289B91602851200D8D6F2 /* Person.m */; };
 		C6E289BD1602852300D8D6F2 /* PhoneTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E289BC1602852300D8D6F2 /* PhoneTypes.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C62C981C1603B59D00A7F629 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		C62C981D1603B59D00A7F629 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		C6E2895316027DF900D8D6F2 /* Maestro iLeads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maestro iLeads.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6E2895716027DF900D8D6F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C6E2895916027DF900D8D6F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -69,8 +71,6 @@
 		C6E289B01602844B00D8D6F2 /* MaestroiLeads.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MaestroiLeads.xcdatamodel; sourceTree = "<group>"; };
 		C6E289B5160284FF00D8D6F2 /* PhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumber.h; sourceTree = "<group>"; };
 		C6E289B6160284FF00D8D6F2 /* PhoneNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumber.m; sourceTree = "<group>"; };
-		C6E289B81602851200D8D6F2 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		C6E289B91602851200D8D6F2 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		C6E289BB1602852300D8D6F2 /* PhoneTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneTypes.h; sourceTree = "<group>"; };
 		C6E289BC1602852300D8D6F2 /* PhoneTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneTypes.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,10 +194,10 @@
 			children = (
 				C6E289B5160284FF00D8D6F2 /* PhoneNumber.h */,
 				C6E289B6160284FF00D8D6F2 /* PhoneNumber.m */,
-				C6E289B81602851200D8D6F2 /* Person.h */,
-				C6E289B91602851200D8D6F2 /* Person.m */,
 				C6E289BB1602852300D8D6F2 /* PhoneTypes.h */,
 				C6E289BC1602852300D8D6F2 /* PhoneTypes.m */,
+				C62C981C1603B59D00A7F629 /* Person.h */,
+				C62C981D1603B59D00A7F629 /* Person.m */,
 			);
 			name = CoreDataObjects;
 			path = SupportingFiles/CoreDataObjects;
@@ -280,8 +280,8 @@
 				C6E289A516027ECA00D8D6F2 /* DocumentHelper.m in Sources */,
 				C6E289B11602844B00D8D6F2 /* MaestroiLeads.xcdatamodel in Sources */,
 				C6E289B7160284FF00D8D6F2 /* PhoneNumber.m in Sources */,
-				C6E289BA1602851200D8D6F2 /* Person.m in Sources */,
 				C6E289BD1602852300D8D6F2 /* PhoneTypes.m in Sources */,
+				C62C981E1603B59D00A7F629 /* Person.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

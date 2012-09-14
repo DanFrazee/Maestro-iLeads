@@ -40,21 +40,21 @@
     UILabel *tl = self.titleLable;
     UILabel *ttl;
     CGSize typeSize;
-    int tlWidth = 200;
-    int tlXPos = 20;
+    CGFloat tlWidth = 200;
+    CGFloat tlXPos = 20;
         
     if (self.phoneNumberObject.type) {
         typeLabel.text = self.phoneNumberObject.type.name;
-        tlWidth = 155;
+        tlWidth = 155.0;
         typeSize = [typeLabel.text sizeWithFont:typeLabel.font];
         ttl = typeLabel;
-        tlXPos = 20 + typeSize.width + 2;
+        tlXPos = 20.0 + typeSize.width + 2.0;
     }
         
     if (editing) {
         [UIView animateWithDuration:.5 animations:^{
             [ttl setFrame:CGRectMake(self.bounds.origin.x + 40, 9, typeSize.width, 21)];
-            [tl setFrame:CGRectMake(tlXPos+20, 9, tlWidth, 21)];
+            [tl setFrame:CGRectMake(tlXPos+20.0, 9, tlWidth, 21)];
             [tf setFrame:CGRectMake(40, 5, 260, 31)];
         }];
         

@@ -17,6 +17,7 @@
     // Override point for customization after application launch.
     MainViewController *mainViewController = [[MainViewController alloc]init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
     [self.window setRootViewController:navigationController];
     
     [self.window makeKeyAndVisible];

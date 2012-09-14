@@ -2,7 +2,7 @@
 //  Person.h
 //  Maestro iLeads
 //
-//  Created by Dan Frazee on 9/13/12.
+//  Created by Dan Frazee on 9/14/12.
 //  Copyright (c) 2012 Maestro. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSString * picture;
+@property (nonatomic, retain) NSString * company;
 @property (nonatomic, retain) NSSet *phoneNumbers;
 @end
 

@@ -43,6 +43,7 @@
     } else {
         if (!self.contact.firstName && !self.contact.lastName) {
             [contactNameField becomeFirstResponder];
+            contactNameField.keyboardAppearance = UIKeyboardAppearanceAlert;
         }
     }
 }
@@ -71,17 +72,20 @@
 -(IBAction)createNewTableRow:(id)sender
 {
     ContactStore *contacts = [ContactStore sharedStore];
-
     if ([(UIButton*)sender tag]==1) {
+        [(UIButton*)sender setHidden:YES];
+        self.contact.company = @"";
+        currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:0];
+    } else if ([(UIButton*)sender tag]==2) {
         [(UIButton*)sender setHidden:YES];
 
         tempPhoneNumber = [contacts addPhoneNumber:@"" ForPerson:self.contact];
         [self addPhoneNumberToNumberArray:tempPhoneNumber];
-        currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:0];
-        
-    }else{
-        [contacts addEmailAddress:@"" ForPerson:self.contact];
         currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:1];
+        
+    }else if([(UIButton*)sender tag]==3){
+        [contacts addEmailAddress:@"" ForPerson:self.contact];
+        currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:2];
     }
     NSLog(@"%i,%i",currentCellPosition.row,currentCellPosition.section);
 
@@ -103,12 +107,12 @@
     NSString* type = [(DetailTableViewCell*)textField.superview cellType];
     
     if ([type isEqualToString:@"number"]) {
-        if (![self.numberArray containsObject:[NSString stringWithString:textField.text]]) {
+        if (![self.numberArray containsObject:[NSString stringWithString:textField.text]])
             [contacts addPhoneNumber:textField.text ForPerson:self.contact];
-        }
     } else if ([type isEqualToString:@"email"]) {
-        
         [contacts addEmailAddress:textField.text ForPerson:self.contact];
+    } else if ([type isEqualToString:@"organization"]) {
+        self.contact.company = textField.text;
     }
     UILabel *label = (UILabel*)[self.view viewWithTag:t+50];
     label.text = textField.text;
@@ -130,17 +134,24 @@
     
     [headerView addSubview:button];
     [headerView addSubview:labelView];
-    
-    if (section==0) {
-        labelView.text = @"Phone Numbers";
+
+    if(section==0){
+        labelView.text = @"Organization";
+        if (!self.contact.company) {
+            [button setHidden:NO];
+        } else{
+            [button setHidden:YES];
+        }
     } else if(section==1){
+        labelView.text = @"Phone Numbers";
+    } else if(section==2){
         labelView.text = @"Email Address";
         if (!self.contact.email) {
             [button setHidden:NO];
         } else{
             [button setHidden:YES];
         }
-    } else if(section==2){
+    } else if(section==3){
         labelView.text = @"Image";
         [button setHidden:YES];
     }
@@ -196,10 +207,11 @@
         } else {
             info = [NSString stringWithFormat:@"%@ %@",self.contact.firstName,self.contact.lastName];
         }
-        
+        textField.keyboardAppearance = UIKeyboardAppearanceAlert;
         [textField setHidden:NO];
         [sender setTitle:@"Done" forState:UIControlStateNormal];
         [textField becomeFirstResponder];
+        textField.keyboardAppearance = UIKeyboardAppearanceAlert;
     }
     
     textField.text = info;
@@ -297,11 +309,16 @@
 {
     if ([textField.superview isKindOfClass:[DetailTableViewCell class]]) {
         NSString *cellType = [(DetailTableViewCell*)textField.superview cellType];
-        if (cellType==@"number") {
+        if (cellType==@"organization"){
             UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:0] viewWithTag:1];
+            [btn setHidden:YES];
+        } else if (cellType==@"number"){
+            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
             [btn setHidden:NO];
         } else if (cellType==@"email"){
             [detailsTableView setContentOffset:CGPointMake(0, 0) animated:YES];
+            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:2] viewWithTag:3];
+            [btn setHidden:YES];
         }
     }
 }
@@ -310,29 +327,26 @@
 {
     UITextField *textField = (UITextField*)sender.userInfo;
     
-    if (textField==contactNameField) {
+    if (textField==contactNameField)
         return;
-    }
     
     int t = textField.tag;
-    int section=0;
-    int position=t-3;
-
+    int hasOrg=0;
+    
+    if (self.contact.company) {
+        hasOrg=1;
+    }
+    
     CGPoint point = [textField.superview convertPoint:textField.frame.origin toView:detailsTableView];
     CGPoint contentOffset = detailsTableView.contentOffset;
     
-    if (point.y>80) {
-        contentOffset.y =  (textField.tag-3)*45 - 38;
-    } else {
+    if (point.y>80)
+        contentOffset.y =  (textField.tag-3)*45 - 28;
+            else
         contentOffset.y = 0;
-    }
     
-    if (t >[self.numberArray count]+2) {
-        section = 1;
-        position = 0;
+    if (t >[self.numberArray count]+hasOrg+2) {
         contentOffset.y +=42;
-        UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
-        [btn setHidden:YES];
     }
     
     [detailsTableView setContentOffset:contentOffset animated:YES];
@@ -347,14 +361,13 @@
     if (!self.numberArray && self.contact.phoneNumbers)
         self.numberArray =  [self.contact.phoneNumbers allObjects];
     
-    if (!self.image && self.contact.picture) {
+    if (!self.image && self.contact.picture)
         self.image = [UIImage imageWithContentsOfFile:self.contact.picture];
-    }
     
-    if (self.image) {
-        return 3;
-    }
-    return 2;
+    if (self.image)
+        return 4;
+    
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -362,11 +375,11 @@
     static NSString *CellIdentifier = @"DefaultCell";
     static NSString *CellIdentifier2 = @"ImageCell";
     
-    if (indexPath.section == 2) {
+    if (indexPath.section == 3) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
-        if (!cell) {
+        if (!cell)
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
-        }
+        
         UIImage *img = [UIImage imageWithContentsOfFile:self.contact.picture];
         CGFloat height = (280/img.size.width)*img.size.height;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.origin.x+11, cell.bounds.origin.y+2, 298, height)];
@@ -392,15 +405,22 @@
     
     NSString *info;
     int position;
+    int hasOrg=0;
     
     if (indexPath.section==0) {
+        if (self.contact.company)
+            hasOrg = 1;
+        position = 0;
+        info =  self.contact.company;
+        cell.cellType =@"organization";
+    } else if(indexPath.section==1){
         PhoneNumber*number =  (PhoneNumber*)[self.numberArray objectAtIndex:indexPath.row];
         cell.phoneNumberObject = number;
-        position = [self.numberArray count]-1;
+        position = [self.numberArray count]+hasOrg-1;
         info =  number.number;
         cell.cellType =@"number";
-    } else if(indexPath.section==1){
-        position = [self.numberArray count];
+    } else if(indexPath.section==2){
+        position = [self.numberArray count]+hasOrg;
         info =self.contact.email;
         cell.cellType =@"email";
     }
@@ -420,15 +440,16 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    
     if (section==0) {
-        return [self.numberArray count];
+        if (self.contact.company)
+            return 1;
     } else if(section==1){
-        if (self.contact.email) {
+        return [self.numberArray count];
+    } else if(section==2){
+        if (self.contact.email)
             return 1;
-        }
-    } else if (section==2){
-        if (self.image) {
+    } else if (section==3){
+        if (self.image)
             return 1;
-        }
     }
     return 0;
 }
@@ -440,7 +461,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==2) {
+    if (indexPath.section==3) {
         UIImage *img = [UIImage imageWithContentsOfFile:self.contact.picture];
         CGFloat height = (280/img.size.width)*img.size.height +4;
         return height;
@@ -455,13 +476,17 @@
         ContactStore *ps = [ContactStore sharedStore];
         
         if (indexPath.section==0) {
+            self.contact.company = nil;
+            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:0] viewWithTag:1];
+            [btn setHidden:NO];
+        } else if (indexPath.section==1) {
             PhoneNumber *number = [self.numberArray objectAtIndex:indexPath.row];
             [ps removePhoneNumber:number forPerson:self.contact];
             [self removePhoneNumberFromNumberArray:number];
-        } else if (indexPath.section==1) {
+        } else if (indexPath.section==2) {
             self.contact.email = nil;
-            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
-            [btn setHidden:YES];
+            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:2] viewWithTag:3];
+            [btn setHidden:NO];
         }
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -516,14 +541,10 @@
     
     // Checking  and setting source types - ignoring photo albums    
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
-    {
         imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-    {
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
     
     imagePicker.delegate = (id)self;
 
@@ -571,25 +592,23 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     NSString *info;
     NSString *cellType = [(DetailTableViewCell*)textField.superview cellType];
     
-    if ([cellType isEqualToString:@"number"]) {
+    if ([cellType isEqualToString:@"organization"])
+        info = self.contact.company;
+    else if ([cellType isEqualToString:@"number"])
         info = [(PhoneNumber*)[self.numberArray objectAtIndex:currentCellPosition.row] number];
-    } else if ([cellType isEqualToString:@"email"]){
+    else if ([cellType isEqualToString:@"email"])
         info = self.contact.email;
-    }
+    
     return info;
 }
 
 -(void)addPhoneNumberToNumberArray:(PhoneNumber*)number
 {
-    //NSSortDescriptor *pd = [NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES];
-    //self.numberArray = [self.contact.phoneNumbers sortedArrayUsingDescriptors:[NSArray arrayWithObject:pd]];
-    
     NSMutableArray *tempArray;
-    if (!self.numberArray) {
+    if (!self.numberArray)
         tempArray = [[NSMutableArray alloc] init];
-    } else {
+            else
         tempArray = [NSMutableArray arrayWithArray:self.numberArray];
-    }
     
     [tempArray insertObject:number atIndex:0];
     

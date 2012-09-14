@@ -139,6 +139,7 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="1016349017"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -150,6 +151,10 @@
 								<int key="IBUISystemItemIdentifier">15</int>
 							</object>
 						</array>
+						<object class="NSColor" key="IBUITintColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+						</object>
 					</object>
 					<object class="IBUIButton" id="676978462">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -443,9 +448,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<string key="contactName">UILabel</string>
 						<string key="contactNameField">UITextField</string>
 						<string key="detailsTableView">UITableView</string>
-						<string key="emailHeaderView">UIView</string>
-						<string key="imageHeaderView">UIView</string>
-						<string key="phoneHeaderView">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="contactName">
@@ -459,18 +461,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<object class="IBToOneOutletInfo" key="detailsTableView">
 							<string key="name">detailsTableView</string>
 							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="emailHeaderView">
-							<string key="name">emailHeaderView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageHeaderView">
-							<string key="name">imageHeaderView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="phoneHeaderView">
-							<string key="name">phoneHeaderView</string>
-							<string key="candidateClassName">UIView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
