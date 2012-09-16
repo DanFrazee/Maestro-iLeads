@@ -97,6 +97,8 @@
     if (self.isNew) {
         if ([self.cellType isEqualToString:@"number"]) {
             [self setUpForPhoneNumberTypeSelection];
+        } else if ([self.cellType isEqualToString:@"notes"]){
+            [self setUpForNotesSection];
         } else
             [self.titleLableTextField becomeFirstResponder];
 
@@ -145,6 +147,17 @@
     
     [self addSubview:typeSelector];
 }
+
+-(void)setUpForNotesSection
+{
+    [self.titleLableTextField removeFromSuperview];
+    
+    UITextView*textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 5, 280, 100)];
+    [self addSubview:textView];
+    [textView becomeFirstResponder];
+    textView.keyboardAppearance = UIKeyboardAppearanceAlert;
+}
+
 
 -(void)typeSelected:(UISegmentedControl*)sender
 {
