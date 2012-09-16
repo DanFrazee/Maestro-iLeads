@@ -151,11 +151,24 @@
 -(void)setUpForNotesSection
 {
     [self.titleLableTextField removeFromSuperview];
+    self.notesLableTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 5, 280, 100)];
+    self.notesLableTextView.tag = self.titleLableTextField.tag;
+    self.notesLableTextView.delegate = self.delegate;
+    UIImage*img =[[UIImage imageNamed:@"uitexfield_bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+    UIImageView *bg =[[UIImageView alloc] initWithImage:img];
+    [bg setFrame:CGRectMake(0, 0, self.notesLableTextView.frame.size.width, self.notesLableTextView.frame.size.height)];
+    [self.notesLableTextView addSubview:bg];
+    [self.notesLableTextView sendSubviewToBack:bg];
     
-    UITextView*textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 5, 280, 100)];
-    [self addSubview:textView];
-    [textView becomeFirstResponder];
-    textView.keyboardAppearance = UIKeyboardAppearanceAlert;
+    
+    [self addSubview:self.notesLableTextView];
+    // Not sure where the edit button is going.
+    //[self addSubview:self.editButton];
+    self.notesLableTextView.layer.cornerRadius = 5;
+    self.notesLableTextView.clipsToBounds = YES;
+    
+    [self.notesLableTextView becomeFirstResponder];
+    self.notesLableTextView.keyboardAppearance = UIKeyboardAppearanceAlert;
 }
 
 

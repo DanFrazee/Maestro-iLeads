@@ -21,6 +21,7 @@
 @property (nonatomic, strong) id delegate;
 @property (nonatomic, strong) IBOutlet UILabel *titleLable;
 @property (nonatomic, strong) IBOutlet UITextField *titleLableTextField;
+@property (nonatomic, strong) UITextView *notesLableTextView;
 @property (nonatomic, strong) IBOutlet UIButton *editButton;
 @property (nonatomic, strong) PhoneNumber*phoneNumberObject;
 
