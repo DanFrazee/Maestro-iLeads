@@ -13,7 +13,7 @@
 
 @class Person;
 
-@interface DetailsViewController : UIViewController<UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate , UIImagePickerControllerDelegate> {
+@interface DetailsViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate , UIImagePickerControllerDelegate> {
     NSMutableArray *tableViewHeaderViews;
     __weak IBOutlet UITableView *detailsTableView;
     
@@ -33,28 +33,23 @@
 @property (nonatomic) BOOL isNewContact;
 @property (nonatomic, weak) NSString *currentPhoneNumber;
 
--(NSString*)getInfoForTextField:(UITextField*)textField;
-
--(BOOL)setNewContactName:(NSString*)fullName;
-
 -(id)initForNewContact:(BOOL)isNew;
+
 -(UIView *)buildHeaderViewForSection:(NSInteger)section;
 
-
--(IBAction)createNewTableRow:(id)sender;
-
+-(void)createNewTableRow:(id)sender;
 -(IBAction)editTextField:(UIButton*)sender;
-
 -(void)scrollToTextField:(UITextField*)textField withTimeDelay:(id)sender;
 
+-(BOOL)setNewContactName:(NSString*)fullName;
 -(BOOL)validateInputForTextField:(UITextField*)textField;
 
--(void)setTypeForNumber:(NSString*)type;
+-(IBAction)beginImageInsertion:(id)sender;
 
 -(void)addPhoneNumberToNumberArray:(PhoneNumber*)number;
+-(void)setTypeForNumber:(NSString*)type;
+
 -(void)removePhoneNumberFromNumberArray:(PhoneNumber*)number;
-
-
--(IBAction)beginImageInsertion:(id)sender;
+-(NSString*)getInfoForTextField:(UITextField*)textField;
 
 @end

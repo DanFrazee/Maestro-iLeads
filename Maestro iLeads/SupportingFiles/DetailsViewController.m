@@ -50,7 +50,7 @@
 
 -(id)initForNewContact:(BOOL)isNew
 {
-    self = [super initWithNibName:@"DetailsViewController" bundle:nil];
+    self = [self initWithNibName:@"DetailsViewController" bundle:nil];
     
     self.isNewContact = isNew;
     
@@ -69,7 +69,7 @@
     return  self;
 }
 
--(IBAction)createNewTableRow:(id)sender
+-(void)createNewTableRow:(id)sender
 {
     ContactStore *contacts = [ContactStore sharedStore];
     if ([(UIButton*)sender tag]==1) {
@@ -86,6 +86,7 @@
     }else if([(UIButton*)sender tag]==3){
         [contacts addEmailAddress:@"" ForPerson:self.contact];
         currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:2];
+        [(UIButton*)sender setHidden:YES];
     }
     NSLog(@"%i,%i",currentCellPosition.row,currentCellPosition.section);
 
@@ -156,13 +157,11 @@
         [button setHidden:YES];
     }
     
-    if (!tableViewHeaderViews) {
+    if (!tableViewHeaderViews)
         tableViewHeaderViews = [[NSMutableArray alloc] init];
-    }
     
-    if (![tableViewHeaderViews containsObject:headerView] ) {
+    if (![tableViewHeaderViews containsObject:headerView])
         [tableViewHeaderViews addObject:headerView];
-    }
     
     return headerView;
 }
@@ -174,8 +173,6 @@
     [super viewDidUnload];
 }
 
-
-//Eventually this should work generically for all textfields -- This can be the delegate for custom UITableViewCells with UITextFields
 -(IBAction)editTextField:(UIButton*)sender
 {
     UITextField*textField = (UITextField*)[sender.superview viewWithTag:sender.tag-100];
@@ -185,22 +182,20 @@
     
     if ([sender.titleLabel.text isEqualToString:@"Done"]) {
         if (isATableCell) {
-            if (![self validateInputForTextField:textField]) {
+            if (![self validateInputForTextField:textField])
                 return;
-            }
         } else {
-            if (![self setNewContactName:contactNameField.text]) {
+            if (![self setNewContactName:contactNameField.text])
                 return;
-            }
         }
         info = textField.text;
         [textField setHidden:YES];
         [sender setTitle:@"Edit" forState:UIControlStateNormal];
         [textField resignFirstResponder];
         
-        if (!self.isNewContact && !detailsTableView.isEditing) {
+        if (!self.isNewContact && !detailsTableView.isEditing)
             [sender setHidden:YES];
-        }
+        
     }else if ([sender.titleLabel.text isEqualToString:@"Edit"]) {
         if(isATableCell){
             info =[self getInfoForTextField:textField];
@@ -218,25 +213,18 @@
     labelField.text = info;
 }
 
--(void)setTypeForNumber:(NSString*)type
-{
-    ContactStore *contacts = [ContactStore sharedStore];
-    [contacts setType:type ForNumber:tempPhoneNumber];
-}
-
 -(BOOL)setNewContactName:(NSString *)fullName
 {
     NSArray*stringArray = [fullName componentsSeparatedByString:@" "];
     
     if (stringArray.count < 2) {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invalid Action" message:@"You Must have at least 2 names to identify person" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invalid Action" message:@"You Must have at least a first and last name to identify person" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
         return NO;
     } else {
         self.contact.firstName = [stringArray objectAtIndex:0];
         self.contact.lastName = [stringArray objectAtIndex:1];
         contactName.text = [NSString stringWithFormat:@"%@ %@",self.contact.firstName,self.contact.lastName];
-        //[sender setTitle:@"Edit" forState:UIControlStateNormal];
     }
     return YES;
 }
@@ -264,28 +252,15 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    //This is just calling the editTextField method as if the 'Done' button had been selected.
     int t = textField.tag;
-    //ContactStore *contacts = [ContactStore sharedStore];
+    UIButton *editButton = (UIButton*)[textField.superview viewWithTag:t+100];
+
+    if (textField==contactNameField)
+        editButton = (UIButton*)[self.view viewWithTag:t+100];
+
+    [self editTextField:editButton];
     
-    UIButton *editButton = (UIButton*)[self.view viewWithTag:t+100];
-    
-    if (textField==contactNameField) {
-        if (![self setNewContactName:textField.text]) {
-            return NO;
-        }
-    } else {
-        if (![self validateInputForTextField:textField]) {
-            return NO;
-        }
-    }
-    
-    [textField setHidden:YES];
-    [editButton setTitle:@"Edit" forState:UIControlStateNormal];
-    [editButton setHidden:NO];
-    
-    if (textField.isFirstResponder) {
-        [textField resignFirstResponder];
-    }
     return YES;
 }
 
@@ -316,10 +291,10 @@
             UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
             [btn setHidden:NO];
         } else if (cellType==@"email"){
-            [detailsTableView setContentOffset:CGPointMake(0, 0) animated:YES];
             UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:2] viewWithTag:3];
             [btn setHidden:YES];
         }
+        [detailsTableView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
 }
 
@@ -340,7 +315,7 @@
     CGPoint point = [textField.superview convertPoint:textField.frame.origin toView:detailsTableView];
     CGPoint contentOffset = detailsTableView.contentOffset;
     
-    if (point.y>80)
+    if (point.y>90)
         contentOffset.y =  (textField.tag-3)*45 - 28;
             else
         contentOffset.y = 0;
@@ -352,9 +327,7 @@
     [detailsTableView setContentOffset:contentOffset animated:YES];
 }
 
-
 #pragma mark - TableView Controls
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //This is all being called here because this happends before viewWillAppear
@@ -406,10 +379,10 @@
     NSString *info;
     int position;
     int hasOrg=0;
-    
+    if (self.contact.company)
+        hasOrg = 1;
+
     if (indexPath.section==0) {
-        if (self.contact.company)
-            hasOrg = 1;
         position = 0;
         info =  self.contact.company;
         cell.cellType =@"organization";
@@ -570,7 +543,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie])
     {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invalid Action" message:@"Videos are not allowed for placement" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invalid Action" message:@"Videos are not allowed for placement here." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     }
     
@@ -584,9 +557,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [self dismissModalViewControllerAnimated:YES];
 }
 
-
 #pragma mark - Helper Methods
-                         
 -(NSString*)getInfoForTextField:(UITextField*)textField
 {
     NSString *info;
@@ -611,16 +582,19 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         tempArray = [NSMutableArray arrayWithArray:self.numberArray];
     
     [tempArray insertObject:number atIndex:0];
-    
     self.numberArray = [NSArray arrayWithArray:tempArray];
 }
+
+-(void)setTypeForNumber:(NSString*)type
+{
+    ContactStore *contacts = [ContactStore sharedStore];
+    [contacts setType:type ForNumber:tempPhoneNumber];
+    }
 
 -(void)removePhoneNumberFromNumberArray:(PhoneNumber*)number
 {
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.numberArray];
-
     [tempArray removeObjectIdenticalTo:number];
-    
     self.numberArray = [NSArray arrayWithArray:tempArray];    
 }
 
