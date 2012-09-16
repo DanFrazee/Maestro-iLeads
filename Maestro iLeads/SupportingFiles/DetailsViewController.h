@@ -13,7 +13,7 @@
 
 @class Person;
 
-@interface DetailsViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate , UIImagePickerControllerDelegate> {
+@interface DetailsViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate , UIImagePickerControllerDelegate, UITextViewDelegate> {
     NSMutableArray *tableViewHeaderViews;
     __weak IBOutlet UITableView *detailsTableView;
     

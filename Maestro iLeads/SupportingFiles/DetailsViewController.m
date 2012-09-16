@@ -78,18 +78,19 @@
         currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:0];
     } else if ([(UIButton*)sender tag]==2) {
         [(UIButton*)sender setHidden:YES];
-
         tempPhoneNumber = [contacts addPhoneNumber:@"" ForPerson:self.contact];
         [self addPhoneNumberToNumberArray:tempPhoneNumber];
         currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:1];
-        
     }else if([(UIButton*)sender tag]==3){
         [contacts addEmailAddress:@"" ForPerson:self.contact];
         currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:2];
         [(UIButton*)sender setHidden:YES];
+    }else if([(UIButton*)sender tag]==4){
+        self.contact.notes = @"";
+        currentCellPosition = [NSIndexPath indexPathForRow:0 inSection:3];
+        [(UIButton*)sender setHidden:YES];
     }
     NSLog(@"%i,%i",currentCellPosition.row,currentCellPosition.section);
-
     NSIndexPath *ip = [NSIndexPath indexPathForRow:currentCellPosition.row inSection:currentCellPosition.section];
     [detailsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:ip]
                             withRowAnimation:UITableViewRowAnimationFade];
@@ -153,6 +154,13 @@
             [button setHidden:YES];
         }
     } else if(section==3){
+        labelView.text = @"Notes";
+        if (!self.contact.email) {
+            [button setHidden:NO];
+        } else{
+            [button setHidden:YES];
+        }
+    } else if(section==4){
         labelView.text = @"Image";
         [button setHidden:YES];
     }
@@ -248,8 +256,24 @@
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
-#pragma mark  - UITextField Controls
+#pragma mark  - UITextView Controls
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    int t = textView.tag;
+    UIButton *editButton = (UIButton*)[self.view viewWithTag:t+100];
+    [editButton setHidden:NO];
+    
+    [NSTimer scheduledTimerWithTimeInterval:.25 target:self selector:@selector(scrollToTextFieldWithTimeDelay:) userInfo:textView repeats:NO];
+}
+- (void)scrollRangeToVisible:(NSRange)range
+{
+    
+}
 
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+}
+
+#pragma mark  - UITextField Controls
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     //This is just calling the editTextField method as if the 'Done' button had been selected.
@@ -300,28 +324,39 @@
 
 -(void)scrollToTextFieldWithTimeDelay:(NSTimer*)sender
 {
-    UITextField *textField = (UITextField*)sender.userInfo;
-    
-    if (textField==contactNameField)
-        return;
-    
-    int t = textField.tag;
-    int hasOrg=0;
-    
-    if (self.contact.company) {
-        hasOrg=1;
-    }
-    
-    CGPoint point = [textField.superview convertPoint:textField.frame.origin toView:detailsTableView];
     CGPoint contentOffset = detailsTableView.contentOffset;
-    
-    if (point.y>90)
-        contentOffset.y =  (textField.tag-3)*45 - 28;
-            else
-        contentOffset.y = 0;
-    
-    if (t >[self.numberArray count]+hasOrg+2) {
-        contentOffset.y +=42;
+
+    if ([sender.userInfo isKindOfClass:[UITextField class]]) {
+        UITextField *textField = (UITextField*)sender.userInfo;
+        
+        if (textField==contactNameField)
+            return;
+        
+        int t = textField.tag;
+        int hasOrg=0;
+        
+        if (self.contact.company)
+            hasOrg=1;
+        
+        CGPoint point = [textField.superview convertPoint:textField.frame.origin toView:detailsTableView];
+        
+        if (point.y>90)
+            contentOffset.y =  (t-3)*45 + 28;
+        else
+            contentOffset.y = 0;
+        
+        if (t >[self.numberArray count]+hasOrg+2)
+            contentOffset.y +=42;
+    } else if ([sender.userInfo isKindOfClass:[UITextView class]]) {
+        UITextView *textView = (UITextView*)sender.userInfo;
+        
+        int t = textView.tag;
+        int hasOrg=0;
+        
+        if (self.contact.company)
+            hasOrg=1;
+
+        contentOffset.y =(t-3)*45 + 112;
     }
     
     [detailsTableView setContentOffset:contentOffset animated:YES];
@@ -338,9 +373,9 @@
         self.image = [UIImage imageWithContentsOfFile:self.contact.picture];
     
     if (self.image)
-        return 4;
+        return 5;
     
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -348,7 +383,7 @@
     static NSString *CellIdentifier = @"DefaultCell";
     static NSString *CellIdentifier2 = @"ImageCell";
     
-    if (indexPath.section == 3) {
+    if (indexPath.section == 4) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
         if (!cell)
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
@@ -379,9 +414,13 @@
     NSString *info;
     int position;
     int hasOrg=0;
+    int hasEmail=0;
+
     if (self.contact.company)
         hasOrg = 1;
-
+    if (self.contact.email)
+        hasEmail = 1;
+    
     if (indexPath.section==0) {
         position = 0;
         info =  self.contact.company;
@@ -396,6 +435,10 @@
         position = [self.numberArray count]+hasOrg;
         info =self.contact.email;
         cell.cellType =@"email";
+    } else if(indexPath.section==3){
+        position = [self.numberArray count]+hasOrg+hasEmail;
+        info =self.contact.notes;
+        cell.cellType =@"notes";
     }
     
     if (![info isEqualToString:@""]) {
@@ -420,7 +463,10 @@
     } else if(section==2){
         if (self.contact.email)
             return 1;
-    } else if (section==3){
+    } else if(section==3){
+        if (self.contact.notes)
+            return 1;
+    } else if (section==4){
         if (self.image)
             return 1;
     }
@@ -435,6 +481,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==3) {
+        CGFloat height = 110;
+        return height;
+    } else if (indexPath.section==4) {
         UIImage *img = [UIImage imageWithContentsOfFile:self.contact.picture];
         CGFloat height = (280/img.size.width)*img.size.height +4;
         return height;
@@ -460,7 +509,12 @@
             self.contact.email = nil;
             UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:2] viewWithTag:3];
             [btn setHidden:NO];
+        } else if (indexPath.section==3) {
+            self.contact.notes = nil;
+            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:3] viewWithTag:4];
+            [btn setHidden:NO];
         }
+        
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
@@ -589,7 +643,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     ContactStore *contacts = [ContactStore sharedStore];
     [contacts setType:type ForNumber:tempPhoneNumber];
-    }
+}
 
 -(void)removePhoneNumberFromNumberArray:(PhoneNumber*)number
 {
