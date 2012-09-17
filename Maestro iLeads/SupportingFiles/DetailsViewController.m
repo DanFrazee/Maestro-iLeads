@@ -33,6 +33,11 @@
 {
     [super viewWillAppear:animated];
     
+    UIImage *bg = [UIImage imageNamed:@"app_bg2.png"];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:bg];
+    [self.view addSubview:bgImageView];
+    [self.view sendSubviewToBack:bgImageView];
+    
     if (!self.isNewContact) {
         [contactNameField setHidden:YES];
         contactName.text = [NSString stringWithFormat:@"%@ %@",self.contact.firstName,self.contact.lastName];
@@ -123,6 +128,10 @@
 
 -(UIView *)buildHeaderViewForSection:(NSInteger)section
 {
+    
+    if (!tableViewHeaderViews)
+        tableViewHeaderViews = [[NSMutableArray alloc] init];
+
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 28)];
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20, 3, 165, 21)];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
@@ -135,6 +144,11 @@
     
     [headerView addSubview:button];
     [headerView addSubview:labelView];
+    
+    UIImageView *sep = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"seperator.png"]];
+    [sep setFrame:CGRectMake(0, 0, sep.image.size.width, sep.image.size.height)];
+    [headerView addSubview:sep];
+    [headerView sendSubviewToBack:sep];
 
     if(section==0){
         labelView.text = @"Organization";
@@ -143,6 +157,7 @@
         } else{
             [button setHidden:YES];
         }
+        [sep removeFromSuperview];
     } else if(section==1){
         labelView.text = @"Phone Numbers";
     } else if(section==2){
@@ -157,12 +172,12 @@
         [button setHidden:YES];
     }
     
-    if (!tableViewHeaderViews)
-        tableViewHeaderViews = [[NSMutableArray alloc] init];
-    
-    if (![tableViewHeaderViews containsObject:headerView])
+    if (tableViewHeaderViews.count <= section)
         [tableViewHeaderViews addObject:headerView];
-    
+
+    if ([tableViewHeaderViews objectAtIndex:section] && [tableViewHeaderViews objectAtIndex:section] != headerView)
+        [tableViewHeaderViews replaceObjectAtIndex:section withObject:headerView];
+
     return headerView;
 }
 
@@ -237,6 +252,7 @@
         }
     }
     
+    [[ContactStore sharedStore] saveChanges];
     self.isNewContact = NO;
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
@@ -282,17 +298,20 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+    int tag = textField.tag;
+    
     if ([textField.superview isKindOfClass:[DetailTableViewCell class]]) {
+        
         NSString *cellType = [(DetailTableViewCell*)textField.superview cellType];
         if (cellType==@"organization"){
-            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:0] viewWithTag:1];
-            [btn setHidden:YES];
+            UIButton*sectionBtn = (UIButton*)[[tableViewHeaderViews objectAtIndex:0] viewWithTag:1];
+            [sectionBtn setHidden:YES];
         } else if (cellType==@"number"){
-            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
-            [btn setHidden:NO];
+            UIButton*sectionBtn = (UIButton*)[[tableViewHeaderViews objectAtIndex:1] viewWithTag:2];
+            [sectionBtn setHidden:NO];
         } else if (cellType==@"email"){
-            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:2] viewWithTag:3];
-            [btn setHidden:YES];
+            UIButton*sectionBtn = (UIButton*)[[tableViewHeaderViews objectAtIndex:2] viewWithTag:3];
+            [sectionBtn setHidden:YES];
         }
         [detailsTableView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
@@ -370,10 +389,17 @@
 
     //This whole section could be cleaned up with proper initializers;
     DetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+
     if (!cell) {
         cell = [[DetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    if (cell.editButton && self.isNewContact==YES) {
+        [cell.editButton setHidden:NO];
+    } else if (cell.editButton && !self.isNewContact && detailsTableView.isEditing){
+        [cell.editButton setHidden:NO];
+    }
+
     cell.delegate = self;
     
     NSString *info;
@@ -429,7 +455,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 28;
+    return HEIGHT_FOR_TABLE_SECTION;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -447,10 +473,16 @@
 {
     if (editingStyle==UITableViewCellEditingStyleDelete) {
         ContactStore *ps = [ContactStore sharedStore];
+        //NSLog(@"%@",tableViewHeaderViews);
+        DetailTableViewCell *cell = (DetailTableViewCell *)[detailsTableView cellForRowAtIndexPath:indexPath];
+        UIButton*btn = (UIButton *)[[tableViewHeaderViews objectAtIndex:indexPath.section] viewWithTag:indexPath.section+1];
+        UITextField *textField = cell.titleLableTextField;
+        if ([textField isFirstResponder]) {
+            [textField resignFirstResponder];
+        }
         
         if (indexPath.section==0) {
             self.contact.company = nil;
-            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:0] viewWithTag:1];
             [btn setHidden:NO];
         } else if (indexPath.section==1) {
             PhoneNumber *number = [self.numberArray objectAtIndex:indexPath.row];
@@ -458,7 +490,6 @@
             [self removePhoneNumberFromNumberArray:number];
         } else if (indexPath.section==2) {
             self.contact.email = nil;
-            UIButton*btn = (UIButton*)[[tableViewHeaderViews objectAtIndex:2] viewWithTag:3];
             [btn setHidden:NO];
         }
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -475,7 +506,7 @@
     }
     
     BOOL isNameCorrect = [self setNewContactName:contactNameField.text];
-
+    
     if ([detailsTableView isEditing]) {
         if (isNameCorrect) {
             [[self.view viewWithTag:20] setHidden:YES];
@@ -589,7 +620,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     ContactStore *contacts = [ContactStore sharedStore];
     [contacts setType:type ForNumber:tempPhoneNumber];
-    }
+}
 
 -(void)removePhoneNumberFromNumberArray:(PhoneNumber*)number
 {

@@ -13,6 +13,8 @@
 
 @class Person;
 
+#define HEIGHT_FOR_TABLE_SECTION 28
+
 @interface DetailsViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate , UIImagePickerControllerDelegate> {
     NSMutableArray *tableViewHeaderViews;
     __weak IBOutlet UITableView *detailsTableView;

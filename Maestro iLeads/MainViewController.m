@@ -38,13 +38,16 @@
 
 -(void)viewDidLoad
 {
-    sortedContacts = [[ContactStore sharedStore] sortedContacts];
     [super viewDidLoad];
+    sortedContacts = [[ContactStore sharedStore] sortedContacts];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    UIImage *bg = [UIImage imageNamed:@"app_bg.png"];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:bg];
+    [self.tableView setBackgroundView:bgImageView];
     [self.tableView reloadData];
 }
 

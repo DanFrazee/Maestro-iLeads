@@ -99,8 +99,11 @@
             [self setUpForPhoneNumberTypeSelection];
         } else if ([self.cellType isEqualToString:@"notes"]){
             [self setUpForNotesSection];
-        } else
+            [self.editButton setHidden:NO];
+        } else{
             [self.titleLableTextField becomeFirstResponder];
+            self.titleLableTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
+        }
 
     } else {
         [self.titleLableTextField setHidden:YES];
@@ -172,6 +175,7 @@
     typeLabel.text = type;
     
     [self.titleLableTextField becomeFirstResponder];
+    self.titleLableTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
 }
 
 -(void)setUpTypeLabelForType:(NSString*)type
