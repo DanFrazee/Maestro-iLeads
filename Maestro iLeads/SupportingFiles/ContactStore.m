@@ -34,8 +34,8 @@
     self = [super init];
     
     if (self) {
-        if(!allContacts)
-            allContacts = [[NSMutableArray alloc] init];
+//        if(!allContacts)
+//            allContacts = [[NSMutableArray alloc] init];
         
         model = [NSManagedObjectModel mergedModelFromBundles:nil];
         
@@ -155,7 +155,7 @@
 
 -(void)addEmailAddress:(NSString*)email ForPerson:(Person *)person
 {
-    [person setEmail:email];
+    //[person setEmail:email];
 }
 
 -(void)removePhoneNumber:(PhoneNumber *)number forPerson:(Person *)person

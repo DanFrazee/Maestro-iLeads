@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Email" representedClassName="Email" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="emailAddresses" inverseEntity="Person" syncable="YES"/>
+    </entity>
     <entity name="Person" representedClassName="Person" syncable="YES">
         <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="emailAddresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Email" inverseName="person" inverseEntity="Email" syncable="YES"/>
         <relationship name="phoneNumbers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PhoneNumber" inverseName="person" inverseEntity="PhoneNumber" syncable="YES"/>
     </entity>
     <entity name="PhoneNumber" representedClassName="PhoneNumber" syncable="YES">
@@ -22,5 +28,6 @@
         <element name="Person" positionX="0" positionY="0" width="0" height="0"/>
         <element name="PhoneNumber" positionX="0" positionY="0" width="0" height="0"/>
         <element name="PhoneTypes" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Email" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

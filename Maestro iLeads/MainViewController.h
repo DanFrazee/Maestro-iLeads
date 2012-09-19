@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainViewController : UITableViewController{
-    NSArray*sortedContacts;
+@interface MainViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate>{
+    NSArray*contacts;
+    NSArray*sectionedArray;
 }
 
--(void)addNewPerson:(id)sender;
+@property (nonatomic,retain) UIActivityIndicatorView *activityIndicatorView;
 
+-(void)addNewPerson:(id)sender;
+-(void)initialContactLoad;
 @end

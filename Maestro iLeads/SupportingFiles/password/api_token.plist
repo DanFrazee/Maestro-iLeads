@@ -2,7 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>api_token</key>
+	<key>apiToken</key>
 	<string>7480038a6a1d970f2fcdcf4f1e4bad11</string>
+	<key>urlPath</key>
+	<string>https://maestroelearning.highrisehq.com/people.xml</string>
 </dict>
 </plist>

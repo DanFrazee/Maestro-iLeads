@@ -25,6 +25,7 @@
 -(NSString*)contactArchivePath;
 -(void)loadAllContacts;
 -(NSArray *)allContacts;
+
 -(NSArray *)sortedContacts;
 
 -(Person *)createContact;

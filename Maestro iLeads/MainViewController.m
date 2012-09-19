@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import "ContactStore.h"
+#import "ContactStoreWithHighrise.h"
 #import "Person.h"
 #import "DetailsViewController.h"
 
@@ -39,7 +39,18 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    sortedContacts = [[ContactStore sharedStore] sortedContacts];
+    
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    self.activityIndicatorView.center = (CGPoint){self.view.center.x,self.view.center.y-50};
+    [self.view addSubview:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
+
+    if(![[[ContactStoreWithHighrise sharedStore] allContacts] count]){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initialContactLoad) name:@"ContactLoadComplete" object:nil];
+    } else {
+        [self.activityIndicatorView stopAnimating];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -65,19 +76,19 @@
 
 -(void)addNewPerson:(id)sender
 {
-    Person *newPerson = [[ContactStore sharedStore] createContact];
-    
-    DetailsViewController*detailedViewController = [[DetailsViewController alloc] initForNewContact:YES];
-    detailedViewController.contact = newPerson;
-    [[self navigationController] pushViewController:detailedViewController animated:YES];
+//    Person *newPerson = [[ContactStore sharedStore] createContact];
+//    
+//    DetailsViewController*detailedViewController = [[DetailsViewController alloc] initForNewContact:YES];
+//    detailedViewController.contact = newPerson;
+//    [[self navigationController] pushViewController:detailedViewController animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        ContactStore*cs = [ContactStore sharedStore];
-        NSArray *contacts = [cs allContacts];
-        [cs removeContact:[contacts objectAtIndex:indexPath.row]];
+//        ContactStore*cs = [ContactStore sharedStore];
+//        NSArray *contacts = [cs allContacts];
+//        [cs removeContact:[contacts objectAtIndex:indexPath.row]];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -87,7 +98,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[ContactStore sharedStore] allContacts] count];
+    return [[[[ContactStoreWithHighrise sharedStore] sortedContacts] objectAtIndex:section] count];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[[UILocalizedIndexedCollation currentCollation] sectionIndexTitles] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,12 +114,27 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    Person *p = [[[[ContactStoreWithHighrise sharedStore] sortedContacts] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    Person *item = [[[ContactStore sharedStore] allContacts]objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text =  [item description];
+    cell.textLabel.text =  [p descriptionForTableViewTitle];
+    cell.detailTextLabel.text = [p descriptionForTableViewSubTitle];
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
 }
 
 #pragma mark - Table view delegate
@@ -111,13 +142,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailsViewController *detailedViewController = [[DetailsViewController alloc] initForNewContact:NO];
-    detailedViewController.contact = [[[ContactStore sharedStore] allContacts] objectAtIndex:indexPath.row];
+    detailedViewController.contact = [[[ContactStoreWithHighrise sharedStore] allContacts] objectAtIndex:indexPath.row];
     [[self navigationController] pushViewController:detailedViewController animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 50;
+}
+
+-(void)initialContactLoad;
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.activityIndicatorView stopAnimating];
+    [self.tableView reloadData];
 }
 
 @end

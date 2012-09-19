@@ -10,6 +10,7 @@
 #import "ContactStore.h"
 #import "PhoneNumber.h"
 #import "PhoneTypes.h"
+#import "Email.h"
 #import "Person.h"
 #import "DetailTableViewCell.h"
 #import "DocumentHelper.h"
@@ -162,7 +163,7 @@
         labelView.text = @"Phone Numbers";
     } else if(section==2){
         labelView.text = @"Email Address";
-        if (!self.contact.email) {
+        if (![[self.contact.emailAddresses allObjects] count]>0) {
             [button setHidden:NO];
         } else{
             [button setHidden:YES];
@@ -420,7 +421,7 @@
         cell.cellType =@"number";
     } else if(indexPath.section==2){
         position = [self.numberArray count]+hasOrg;
-        info =self.contact.email;
+        info =[(Email*)[self.contact.emailAddresses anyObject] address];
         cell.cellType =@"email";
     }
     
@@ -444,7 +445,7 @@
     } else if(section==1){
         return [self.numberArray count];
     } else if(section==2){
-        if (self.contact.email)
+        if ([[self.contact.emailAddresses allObjects] count])
             return 1;
     } else if (section==3){
         if (self.image)
@@ -489,7 +490,7 @@
             [ps removePhoneNumber:number forPerson:self.contact];
             [self removePhoneNumberFromNumberArray:number];
         } else if (indexPath.section==2) {
-            self.contact.email = nil;
+            self.contact.emailAddresses = nil;
             [btn setHidden:NO];
         }
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -599,7 +600,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     else if ([cellType isEqualToString:@"number"])
         info = [(PhoneNumber*)[self.numberArray objectAtIndex:currentCellPosition.row] number];
     else if ([cellType isEqualToString:@"email"])
-        info = self.contact.email;
+        info = [self.contact.emailAddresses anyObject];
     
     return info;
 }
