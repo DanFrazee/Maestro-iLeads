@@ -14,6 +14,7 @@
 		C605711A16076E1400666AB3 /* seperator.png in Resources */ = {isa = PBXBuildFile; fileRef = C605711816076E1400666AB3 /* seperator.png */; };
 		C605711B16076E1400666AB3 /* seperator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C605711916076E1400666AB3 /* seperator@2x.png */; };
 		C62C981E1603B59D00A7F629 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = C62C981D1603B59D00A7F629 /* Person.m */; };
+		C63EAB681609F890003E215E /* api_token.plist in Resources */ = {isa = PBXBuildFile; fileRef = C63EAB671609F890003E215E /* api_token.plist */; };
 		C6E2895816027DF900D8D6F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895716027DF900D8D6F2 /* UIKit.framework */; };
 		C6E2895A16027DF900D8D6F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895916027DF900D8D6F2 /* Foundation.framework */; };
 		C6E2895C16027DF900D8D6F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895B16027DF900D8D6F2 /* CoreGraphics.framework */; };
@@ -48,6 +49,7 @@
 		C605711916076E1400666AB3 /* seperator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seperator@2x.png"; sourceTree = "<group>"; };
 		C62C981C1603B59D00A7F629 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		C62C981D1603B59D00A7F629 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		C63EAB671609F890003E215E /* api_token.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = api_token.plist; path = SupportingFiles/password/api_token.plist; sourceTree = "<group>"; };
 		C6E2895316027DF900D8D6F2 /* Maestro iLeads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maestro iLeads.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6E2895716027DF900D8D6F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C6E2895916027DF900D8D6F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -169,6 +171,7 @@
 				C6E2896316027DF900D8D6F2 /* main.m */,
 				C6E2896516027DF900D8D6F2 /* Maestro iLeads-Prefix.pch */,
 				C6E289B01602844B00D8D6F2 /* MaestroiLeads.xcdatamodel */,
+				C63EAB671609F890003E215E /* api_token.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				C605711716076C9800666AB3 /* app_bg2@2x.png in Resources */,
 				C605711A16076E1400666AB3 /* seperator.png in Resources */,
 				C605711B16076E1400666AB3 /* seperator@2x.png in Resources */,
+				C63EAB681609F890003E215E /* api_token.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
