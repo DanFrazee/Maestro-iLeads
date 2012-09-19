@@ -1,3 +1,6 @@
 [submodule "37signals"]
 	path = 37signals
 	url = git://github.com/37signals/api.git
+[submodule "AFNetworking"]
+	path = AFNetworking
+	url = git://github.com/AFNetworking/AFNetworking.git
