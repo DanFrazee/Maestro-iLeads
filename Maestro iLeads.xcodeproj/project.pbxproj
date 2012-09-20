@@ -25,7 +25,8 @@
 		C63EAB851609FBF6003E215E /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C63EAB7C1609FBF6003E215E /* UIImageView+AFNetworking.m */; };
 		C63EAB881609FE6C003E215E /* ContactStoreWithHighrise.m in Sources */ = {isa = PBXBuildFile; fileRef = C63EAB871609FE6C003E215E /* ContactStoreWithHighrise.m */; };
 		C63EAB8E160A08E7003E215E /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = C63EAB8D160A08E7003E215E /* Email.m */; };
-		C63EAB97160A50DA003E215E /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = C63EAB96160A50DA003E215E /* Person.m */; };
+		C68EF322160B532600A2C0AC /* HighRiseAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C68EF321160B532600A2C0AC /* HighRiseAFHTTPClient.m */; };
+		C68EF32C160BB01F00A2C0AC /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = C68EF32B160BB01F00A2C0AC /* Person.m */; };
 		C6E2895816027DF900D8D6F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895716027DF900D8D6F2 /* UIKit.framework */; };
 		C6E2895A16027DF900D8D6F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895916027DF900D8D6F2 /* Foundation.framework */; };
 		C6E2895C16027DF900D8D6F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E2895B16027DF900D8D6F2 /* CoreGraphics.framework */; };
@@ -82,8 +83,10 @@
 		C63EAB871609FE6C003E215E /* ContactStoreWithHighrise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactStoreWithHighrise.m; path = SupportingFiles/ContactStoreWithHighrise.m; sourceTree = "<group>"; };
 		C63EAB8C160A08E7003E215E /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		C63EAB8D160A08E7003E215E /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
-		C63EAB95160A50DA003E215E /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		C63EAB96160A50DA003E215E /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		C68EF320160B532600A2C0AC /* HighRiseAFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighRiseAFHTTPClient.h; sourceTree = "<group>"; };
+		C68EF321160B532600A2C0AC /* HighRiseAFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighRiseAFHTTPClient.m; sourceTree = "<group>"; };
+		C68EF32A160BB01F00A2C0AC /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		C68EF32B160BB01F00A2C0AC /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		C6E2895316027DF900D8D6F2 /* Maestro iLeads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maestro iLeads.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6E2895716027DF900D8D6F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C6E2895916027DF900D8D6F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -235,6 +238,8 @@
 				C63EAB671609F890003E215E /* api_token.plist */,
 				C63EAB861609FE6C003E215E /* ContactStoreWithHighrise.h */,
 				C63EAB871609FE6C003E215E /* ContactStoreWithHighrise.m */,
+				C68EF320160B532600A2C0AC /* HighRiseAFHTTPClient.h */,
+				C68EF321160B532600A2C0AC /* HighRiseAFHTTPClient.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -282,8 +287,8 @@
 				C6E289BC1602852300D8D6F2 /* PhoneTypes.m */,
 				C63EAB8C160A08E7003E215E /* Email.h */,
 				C63EAB8D160A08E7003E215E /* Email.m */,
-				C63EAB95160A50DA003E215E /* Person.h */,
-				C63EAB96160A50DA003E215E /* Person.m */,
+				C68EF32A160BB01F00A2C0AC /* Person.h */,
+				C68EF32B160BB01F00A2C0AC /* Person.m */,
 			);
 			name = CoreDataObjects;
 			path = SupportingFiles/CoreDataObjects;
@@ -385,7 +390,8 @@
 				C63EAB851609FBF6003E215E /* UIImageView+AFNetworking.m in Sources */,
 				C63EAB881609FE6C003E215E /* ContactStoreWithHighrise.m in Sources */,
 				C63EAB8E160A08E7003E215E /* Email.m in Sources */,
-				C63EAB97160A50DA003E215E /* Person.m in Sources */,
+				C68EF322160B532600A2C0AC /* HighRiseAFHTTPClient.m in Sources */,
+				C68EF32C160BB01F00A2C0AC /* Person.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,6 @@
 	<key>apiToken</key>
 	<string>7480038a6a1d970f2fcdcf4f1e4bad11</string>
 	<key>urlPath</key>
-	<string>https://maestroelearning.highrisehq.com/people.xml</string>
+	<string>https://maestroelearning.highrisehq.com/</string>
 </dict>
 </plist>

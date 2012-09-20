@@ -12,6 +12,8 @@
 #import "PhoneNumber.h"
 #import "PhoneTypes.h"
 #import "AFNetworking.h"
+#import "HighRiseAFHTTPClient.h"
+
 
 @implementation ContactStoreWithHighrise
 
@@ -78,50 +80,23 @@
     {
         allContacts = [[NSMutableArray alloc] init];
         
-        /**
-         **This is section is to keep urlPath and apiToken private. The plist is located in main bundle and is listed in .gitignor
-         **/
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"api_token" ofType:@"plist"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:filePath];
-        NSString *urlPath = [dict objectForKey:@"urlPath"];//basePath + /people.xml
-        NSString *apiToken = [dict objectForKey:@"apiToken"];
+        NSLog(@"Begin Connection");
+        HighRiseAFHTTPClient *client = [[HighRiseAFHTTPClient alloc] init];
+
+        NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"people.xml" parameters:nil];
         
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        NSURL *url = [[NSURL alloc] initWithString:urlPath];
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-        
-        AFURLConnectionOperation *connection = [[AFURLConnectionOperation alloc] initWithRequest:request];
-        
-        [connection setAuthenticationChallengeBlock:^(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge){
-            NSLog(@"received authentication challenge");
-            NSLog(@"%i",[challenge previousFailureCount]);
-            if ([challenge previousFailureCount] == 0) {
-                NSURLCredential *newCredential = [NSURLCredential credentialWithUser:apiToken
-                                                                            password:@"x"
-                                                                         persistence:NSURLCredentialPersistenceForSession];
-                NSLog(@"credential created");
-                [[challenge sender] useCredential:newCredential forAuthenticationChallenge:challenge];
-                NSLog(@"responded to authentication challenge");
-            }
-            else {
-                NSLog(@"previous authentication failure");
-            }
-        }];
-        
-        [connection setCompletionBlock:^(){
-            AFXMLRequestOperation *operation = [AFXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id XML) {
-                [(NSXMLParser*)XML setDelegate:self];
-                NSLog(@"%d",[XML parse]);
-                [self saveChanges];
-                [self postCompletionNotification];
-            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XML) {
-                NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
-            }];
-            [operation start];
-        }];
-        
-        [connection start];
+        AFHTTPRequestOperation *operation = [client HTTPRequestOperationWithRequest:request
+        success:^(AFHTTPRequestOperation *request, id responseObject) {
+                            [(NSXMLParser*)responseObject setDelegate:self];
+                            NSLog(@"%d",[responseObject parse]);
+                            [self saveChanges];
+                            [self postCompletionNotification];
+                        }
+        failure:^(AFHTTPRequestOperation *request, NSError *error) {
+                            NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+                        }];
+     
+        [client enqueueHTTPRequestOperation:operation];
     }
 }
 
@@ -150,9 +125,7 @@
 
 -(void)postCompletionNotification
 {
-    NSLog(@"begin sorting contacts");
     [self sortAllContacts];
-    NSLog(@"%@",sortedContacts);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ContactLoadComplete" object:nil];
 }
 
@@ -184,6 +157,23 @@
     if ([elementName isEqualToString:@"person"]) {
         [allContacts addObject:person];
         person = nil;
+    }
+
+    if ([elementName isEqualToString:@"id"]) {
+        person.idNumber = [NSNumber numberWithInteger:[tempString integerValue]];
+        NSLog(@"%@",person.idNumber);
+    }
+
+    if ([elementName isEqualToString:@"created-at"]) {
+//        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+//        [df setDateFormat:@"EEE MMM dd HH:mm:ss ZZ yyyy"];
+//        person.createdAt =[df dateFromString:@"2012-06-12T14:57:35Z"];
+//        NSLog(@"%@",person.createdAt);
+        //person.createdAt = tempString;
+    }
+    
+    if ([elementName isEqualToString:@"updated-at"]) {
+        //person.updatedAt = tempString;
     }
     
     if ([elementName isEqualToString:@"first-name"]) {

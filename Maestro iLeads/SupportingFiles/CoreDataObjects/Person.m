@@ -2,7 +2,7 @@
 //  Person.m
 //  Maestro iLeads
 //
-//  Created by Dan Frazee on 9/19/12.
+//  Created by Dan Frazee on 9/20/12.
 //  Copyright (c) 2012 Maestro. All rights reserved.
 //
 
@@ -14,14 +14,15 @@
 @implementation Person
 
 @dynamic company;
+@dynamic createdAt;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic notes;
 @dynamic picture;
-@dynamic createdAt;
 @dynamic updatedAt;
-@dynamic phoneNumbers;
+@dynamic idNumber;
 @dynamic emailAddresses;
+@dynamic phoneNumbers;
 
 -(NSString *)descriptionForTableViewTitle
 {
