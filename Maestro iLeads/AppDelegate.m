@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "ContactStoreWithHighrise.h"
 
 @implementation AppDelegate
 
@@ -39,6 +40,8 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    [[ContactStoreWithHighrise sharedStore] loadUpdatedContacts];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

@@ -16,12 +16,17 @@
 
 @interface ContactStoreWithHighrise : NSObject <NSXMLParserDelegate> {
     NSMutableArray *allContacts;
+    NSMutableArray *idNumbers;
+    
     NSMutableArray* sortedContacts;
     NSString *tempString;
     NSMutableArray *tempArray;
+    BOOL IsIdForPerson;
+
     NSRange tableRange;
     NSArray *currentViewableContacts;
     
+    NSDate *dateOfFullIntegration;
     Person *person;
     Email *email;
     PhoneNumber *number;
@@ -35,6 +40,7 @@
 
 -(NSString*)contactArchivePath;
 -(void)loadAllContacts;
+-(void)loadUpdatedContacts;
 -(NSArray *)allContacts;
 
 -(BOOL)saveChanges;

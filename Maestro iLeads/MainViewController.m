@@ -142,7 +142,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailsViewController *detailedViewController = [[DetailsViewController alloc] initForNewContact:NO];
-    detailedViewController.contact = [[[ContactStoreWithHighrise sharedStore] allContacts] objectAtIndex:indexPath.row];
+    detailedViewController.contact = [[[[ContactStoreWithHighrise sharedStore] sortedContacts] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [[self navigationController] pushViewController:detailedViewController animated:YES];
 }
 

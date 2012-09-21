@@ -4,3 +4,6 @@
 [submodule "AFNetworking"]
 	path = AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git
+[submodule "iso8601Formatter"]
+	path = iso8601Formatter
+	url = git://github.com/boredzo/iso-8601-date-formatter.git
